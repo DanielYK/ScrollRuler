@@ -6,6 +6,7 @@
  - 喜欢的朋友可以下载下来，如果您感觉我写的代码对您有所帮助，还请在 github 给个 star，非常感谢您的支持！
 
  * 使用方法
+ 
 <pre><code>
  [self.view addSubview:self.rullerView];
  -(DYScrollRulerView *)rullerView{
