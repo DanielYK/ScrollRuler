@@ -21,11 +21,11 @@
 /**
  *  绘制三角形标示
  */
-@interface DYTriganleView : UIView
+@interface DYTriangleView : UIView
 @property(nonatomic,strong)UIColor *triangleColor;
 
 @end
-@implementation DYTriganleView
+@implementation DYTriangleView
 
 -(void)drawRect:(CGRect)rect{
     //设置背景颜色
@@ -153,7 +153,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
     CGContextSetLineWidth(context, 1.0);
-    CGContextSetLineWidth(context, kCGLineCapButt);
+    CGContextSetLineCap(context, kCGLineCapButt);
     
     CGContextMoveToPoint(context, 0, 0);//起始点
     NSString *num = [NSString stringWithFormat:@"%d%@",_maxValue,_unit];
@@ -177,7 +177,7 @@
 @property(nonatomic, strong)UILabel         *unitLab;
 @property(nonatomic, strong)UICollectionView*collectionView;
 @property(nonatomic, strong)UIImageView     *redLine;
-@property(nonatomic, strong)DYTriganleView  *triangle;
+@property(nonatomic, strong)DYTriangleView  *triangle;
 @property(nonatomic, assign)float           realValue;
 @property(nonatomic, copy  )NSString        *unit;//单位
 @property(nonatomic, assign)float           stepNum;//分多少个区
@@ -210,9 +210,9 @@
     return self;
 }
 
--(DYTriganleView *)triangle{
+-(DYTriangleView *)triangle{
     if (!_triangle) {
-        _triangle = [[DYTriganleView alloc]initWithFrame:CGRectMake(self.bounds.size.width/2-0.5-TrangleWidth/2, CGRectGetMaxY(_valueTF.frame), TrangleWidth, TrangleWidth)];
+        _triangle = [[DYTriangleView alloc]initWithFrame:CGRectMake(self.bounds.size.width/2-0.5-TrangleWidth/2, CGRectGetMaxY(_valueTF.frame), TrangleWidth, TrangleWidth)];
         _triangle.backgroundColor   = [UIColor clearColor];
         _triangle.triangleColor     = _triangleColor;
     }
