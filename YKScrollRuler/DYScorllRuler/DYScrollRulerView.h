@@ -31,7 +31,7 @@
 //背景颜色
 @property(nonatomic,strong)UIColor *bgColor;
 
--(instancetype)initWithFrame:(CGRect)frame theMinValue:(float)minValue theMaxValue:(float)maxValue theStep:(float)step theUnit:(NSString *)unit;
+-(instancetype)initWithFrame:(CGRect)frame theMinValue:(float)minValue theMaxValue:(float)maxValue theStep:(float)step theUnit:(NSString *)unit theNum:(NSInteger)betweenNum;
 
 -(void)setRealValue:(float)realValue animated:(BOOL)animated;
 

@@ -5,6 +5,8 @@
 //  Created by Daniel Yao on 16/10/31.
 //  Copyright © 2016年 Daniel Yao. All rights reserved.
 //
+#define ScreenWidth  ([[UIScreen mainScreen] bounds].size.width)
+#define ScreenHeight  ([[UIScreen mainScreen] bounds].size.height)
 
 #define TextColorGrayAlpha 1.0 //文字的颜色灰度
 #define TextRulerFont  [UIFont systemFontOfSize:11]
@@ -62,6 +64,7 @@
 
 @interface DYRulerView : UIView
 
+@property (nonatomic,assign)NSInteger betweenNumber;
 @property (nonatomic,assign)int minValue;
 @property (nonatomic,assign)int maxValue;
 @property (nonatomic,  copy)NSString *unit;
@@ -81,9 +84,9 @@
     CGContextSetLineWidth(context, 1);//设置线的宽度，
     CGContextSetLineCap(context,kCGLineCapButt);
     CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);//设置线的颜色，默认是黑色
-    for (int i = 0; i <= 10; i ++){
+    for (int i = 0; i <= _betweenNumber; i ++){
         CGContextMoveToPoint(context, startX+lineCenterX*i, topY);
-        if (i%10 == 0){
+        if (i%_betweenNumber == 0){
             NSString *num = [NSString stringWithFormat:@"%.f%@",i*_step+_minValue,_unit];
             if ([num floatValue]>1000000){
                 num = [NSString stringWithFormat:@"%.f万%@",[num floatValue]/10000.f,_unit];
@@ -184,19 +187,20 @@
 @property(nonatomic, assign)float           minValue;//游标的最小值
 @property(nonatomic, assign)float           maxValue;//游标的最大值
 @property(nonatomic, assign)float           step;//间隔值，每两条相隔多少值
-
+@property(nonatomic, assign)NSInteger       betweenNum;
 @end
 @implementation DYScrollRulerView
 
--(instancetype)initWithFrame:(CGRect)frame theMinValue:(float)minValue theMaxValue:(float)maxValue theStep:(float)step theUnit:(NSString *)unit{
+-(instancetype)initWithFrame:(CGRect)frame theMinValue:(float)minValue theMaxValue:(float)maxValue theStep:(float)step theUnit:(NSString *)unit theNum:(NSInteger)betweenNum{
     
     self = [super initWithFrame:frame];
     if (self) {
         _minValue   = minValue;
         _maxValue   = maxValue;
         _step       = step;
-        _stepNum    = (_maxValue-_minValue)/_step/10;
+        _stepNum    = (_maxValue-_minValue)/_step/betweenNum;
         _unit       = unit;
+        _betweenNum = betweenNum;
         _bgColor    = [UIColor whiteColor];
         _triangleColor          = [UIColor orangeColor];//默认橙色
         self.backgroundColor    = [UIColor whiteColor];
@@ -230,6 +234,7 @@
         _collectionView.showsVerticalScrollIndicator    = NO;
         _collectionView.dataSource      = self;
         _collectionView.delegate        = self;
+        _collectionView.contentSize     = CGSizeMake(_stepNum*_step+ScreenWidth/2, CollectionHeight);
         
         [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"headCell"];
         [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"footerCell"];
@@ -285,7 +290,7 @@
     _realValue      = defaultValue;
     _valueTF.text   = [NSString stringWithFormat:@"%.1f",defaultValue];
     
-    [_collectionView setContentOffset:CGPointMake((int)((defaultValue-_minValue)/_step)*RulerGap, 0) animated:animated];
+    [_collectionView setContentOffset:CGPointMake(((defaultValue-_minValue)/(float)_step)*RulerGap, 0) animated:animated];
 
 }
 #pragma mark - UITextFieldDelegate
@@ -317,7 +322,6 @@
     return 2+_stepNum;
 }
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
     if (indexPath.item == 0){
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"headCell" forIndexPath:indexPath];
         DYHeaderRulerView *headerView = [cell.contentView viewWithTag:1000];
@@ -348,15 +352,23 @@
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"custemCell" forIndexPath:indexPath];
         DYRulerView *rulerView = [cell.contentView viewWithTag:1002];
         if (!rulerView){
-            rulerView  = [[DYRulerView alloc]initWithFrame:CGRectMake(0, 0, RulerGap*10, CollectionHeight)];
-            rulerView.backgroundColor   =  [UIColor clearColor];
+            rulerView  = [[DYRulerView alloc]initWithFrame:CGRectMake(0, 0, RulerGap*_betweenNum, CollectionHeight)];
             rulerView.tag               = 1002;
             rulerView.step              = _step;
             rulerView.unit              = _unit;
+            rulerView.betweenNumber     = _betweenNum;
             [cell.contentView addSubview:rulerView];
         }
-        rulerView.minValue = _step*(indexPath.item-1)*10;
-        rulerView.maxValue = _step*indexPath.item*10;
+        if(indexPath.item>=8 && indexPath.item<=12){
+            rulerView.backgroundColor   =  [UIColor greenColor];
+        }else if(indexPath.item>=13 && indexPath.item<=18){
+            rulerView.backgroundColor   =  [UIColor redColor];
+        }else{
+            rulerView.backgroundColor   =  [UIColor grayColor];
+        }
+
+        rulerView.minValue = _step*(indexPath.item-1)*_betweenNum;
+        rulerView.maxValue = _step*indexPath.item*_betweenNum;
         [rulerView setNeedsDisplay];
 
         return cell;
@@ -368,7 +380,7 @@
     if (indexPath.item == 0 || indexPath.item == _stepNum+1){
         return CGSizeMake(self.frame.size.width/2, CollectionHeight);
     }else{
-        return CGSizeMake(RulerGap*10.f, CollectionHeight);
+        return CGSizeMake(RulerGap*_betweenNum, CollectionHeight);
     }
 }
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
@@ -384,10 +396,10 @@
 #pragma mark -UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     int value = scrollView.contentOffset.x/RulerGap;
-    NSInteger totalValue = value*_step +_minValue;
+    float totalValue = value*_step +_minValue;
 
     if (_scrollByHand) {
-                if (totalValue >= _maxValue) {
+        if (totalValue >= _maxValue) {
             _valueTF.text = [NSString stringWithFormat:@"%.1f",_maxValue];
         }else if(totalValue <= _minValue){
             _valueTF.text = [NSString stringWithFormat:@"%.1f",_minValue];
