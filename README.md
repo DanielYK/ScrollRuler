@@ -1,27 +1,29 @@
 # ScrollRuler
 
 
+# 喜欢的朋友可以下载下来，如果您感觉代码对您有所帮助，还请在 github 给个 star，非常感谢您的支持！
+ 
  * 京东金融滑动选择资产尺子，以及类似于体重、身高等滑动尺子的demo
  
- - 喜欢的朋友可以下载下来，如果您感觉我写的代码对您有所帮助，还请在 github 给个 star，非常感谢您的支持！
 
- * 使用方法
- 
+ * 使用方法 1.1版本更新 
+ - 间隔条数可控使用方法如下，建议更新，增加betweenNum字段属性
+
 <pre><code>
  [self.view addSubview:self.rullerView];
- -(DYScrollRulerView *)rullerView{
-  if (!_rullerView) {
-     NSString *unitStr = @"￥";
-     CGFloat rullerHeight = [DYScrollRulerView rulerViewHeight];
-     _rullerView = [[DYScrollRulerView alloc]initWithFrame:CGRectMake(5, ScreenHeight/5.0, ScreenWidth-20, rullerHeight) theMinValue:0 theMaxValue:1000 theStep:10 theUnit:unitStr];
-     [_rullerView setDefaultValue:500 animated:YES];
-     _rullerView.bgColor = [UIColor cyanColor];
-     _rullerView.triangleColor   = [UIColor redColor];
-     _rullerView.delegate        = self;
-     _rullerView.scrollByHand    = YES;
- }
-  return _rullerView;
- }
+-(DYScrollRulerView *)rullerView{
+    if (!_rullerView) {
+        NSString *unitStr = @"￥";
+        CGFloat rullerHeight = [DYScrollRulerView rulerViewHeight];
+        _rullerView = [[DYScrollRulerView alloc]initWithFrame:CGRectMake(5, ScreenHeight/5.0, ScreenWidth-20, rullerHeight) theMinValue:0 theMaxValue:1000 theStep:10 theUnit:unitStr theNum:10];
+        [_rullerView setDefaultValue:500 animated:YES];
+        _rullerView.bgColor = [UIColor lightGrayColor];
+        _rullerView.triangleColor   = [UIColor redColor];
+        _rullerView.delegate        = self;
+        _rullerView.scrollByHand    = YES;
+    }
+    return _rullerView;
+}
 </code></pre>
 
 //滑动尺子时产生的回调
