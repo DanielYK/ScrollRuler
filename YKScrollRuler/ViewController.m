@@ -47,7 +47,7 @@
     if (!_timeRullerView) {
         NSString *unitStr = @"";
         CGFloat rullerHeight = [DYScrollRulerView rulerViewHeight];
-        _timeRullerView = [[DYScrollRulerView alloc]initWithFrame:CGRectMake(5, ScreenHeight/5.0*3, ScreenWidth-20, rullerHeight) theMinValue:0 theMaxValue:23  theStep:0.1 theUnit:unitStr theNum:10];
+        _timeRullerView = [[DYScrollRulerView alloc]initWithFrame:CGRectMake(5, ScreenHeight/5.0*3, ScreenWidth-20, rullerHeight) theMinValue:0 theMaxValue:23  theStep:0.2 theUnit:unitStr theNum:5];
         [_timeRullerView setDefaultValue:2 animated:YES];
         _timeRullerView.bgColor = [UIColor orangeColor];
         _timeRullerView.triangleColor   = [UIColor redColor];
