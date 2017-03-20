@@ -1,10 +1,14 @@
-# ScrollRuler
-
-
-# 喜欢的朋友可以下载下来，如果您感觉代码对您有所帮助，还请在 github 给个 star，非常感谢您的支持！
- 
+ScrollRuler
+=
+喜欢的朋友可以下载下来，如果代码对你有所帮助，还请在 github 给个 star，非常感谢你的支持！
+- 
  * 京东金融滑动选择资产尺子，以及类似于体重、身高等滑动尺子的demo
  
+ 
+ * 效果图
+ 
+  ![image](https://github.com/DanielYK/SwiftRulerView/blob/master/rulerView.gif)
+
 
  * 使用方法 1.1版本更新 
  - 间隔条数可控使用方法如下，建议更新，增加betweenNum字段属性
