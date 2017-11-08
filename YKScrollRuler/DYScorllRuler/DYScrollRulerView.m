@@ -204,7 +204,7 @@
         _bgColor    = [UIColor whiteColor];
         _triangleColor          = [UIColor orangeColor];//默认橙色
         self.backgroundColor    = [UIColor whiteColor];
-
+        
         [self addSubview:self.valueTF];
         [self addSubview:self.unitLab];
         [self addSubview:self.collectionView];
@@ -291,7 +291,7 @@
     _valueTF.text   = [NSString stringWithFormat:@"%.1f",defaultValue];
     
     [_collectionView setContentOffset:CGPointMake(((defaultValue-_minValue)/(float)_step)*RulerGap, 0) animated:animated];
-
+    
 }
 #pragma mark - UITextFieldDelegate
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -366,11 +366,11 @@
         }else{
             rulerView.backgroundColor   =  [UIColor grayColor];
         }
-
-        rulerView.minValue = _step*(indexPath.item-1)*_betweenNum;
+        
+        rulerView.minValue = _step*(indexPath.item-1)*_betweenNum+_minValue;
         rulerView.maxValue = _step*indexPath.item*_betweenNum;
         [rulerView setNeedsDisplay];
-
+        
         return cell;
     }
 }
@@ -397,7 +397,7 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     int value = scrollView.contentOffset.x/RulerGap;
     float totalValue = value*_step +_minValue;
-
+    
     if (_scrollByHand) {
         if (totalValue >= _maxValue) {
             _valueTF.text = [NSString stringWithFormat:@"%.1f",_maxValue];
@@ -423,10 +423,11 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 @end
+
