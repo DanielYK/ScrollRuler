@@ -7,7 +7,7 @@ ScrollRuler
  
  * 效果图
  
-  ![image](https://github.com/DanielYK/ScrollRuler/YKScrollRuler/DYScorllRuler/ruler.gif)
+  ![image](https://github.com/DanielYK/ScrollRuler/blob/master/YKScrollRuler/DYScorllRuler/ruler.gif)
 
 
  * 使用方法 1.1版本更新 
