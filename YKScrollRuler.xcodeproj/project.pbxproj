@@ -36,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3705CF741FB2B17100A027DA /* ruler.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ruler.gif; sourceTree = "<group>"; };
 		6D0416381DE0594500AC3241 /* DYScrollRulerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYScrollRulerView.h; sourceTree = "<group>"; };
 		6D0416391DE0594500AC3241 /* DYScrollRulerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYScrollRulerView.m; sourceTree = "<group>"; };
 		6D5B7BCD1DC6FB690075D14F /* YKScrollRuler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YKScrollRuler.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +85,7 @@
 		6D0416371DE0594500AC3241 /* DYScorllRuler */ = {
 			isa = PBXGroup;
 			children = (
+				3705CF741FB2B17100A027DA /* ruler.gif */,
 				6D0416381DE0594500AC3241 /* DYScrollRulerView.h */,
 				6D0416391DE0594500AC3241 /* DYScrollRulerView.m */,
 			);
